@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Basic node API with stubbed data",
+  "main": "dist/index.js",
+  "author": "Samuel Barker <spbarker1994@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --presets babel-preset-env --out-dir dist",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "standard": "^11.0.0"
+  }
+}
