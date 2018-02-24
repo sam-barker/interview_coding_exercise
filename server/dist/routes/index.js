@@ -3,21 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.setup = setup;
 
 var _controllers = require('../controllers');
 
-var routes = [{
-  url: '/users',
-  action: _controllers.UsersController.index
-}, {
-  url: '/users/:id',
-  action: _controllers.UsersController.show
-}, {
-  url: '/posts',
-  action: _controllers.PostsController.index
-}, {
-  url: '/comments',
-  action: _controllers.CommentsController.index
-}];
-
-exports.default = routes;
+function setup(app) {
+  app.get('/users', _controllers.UsersController.index);
+  app.get('/users/:id', _controllers.UsersController.show);
+  app.get('/posts', _controllers.PostsController.index);
+  app.get('/comments', _controllers.CommentsController.index);
+}
