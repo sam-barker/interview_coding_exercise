@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import Store from './data'
 import {fetchUsers} from './data/actionCreators/users'
+import {UserList} from './components'
 
 class App extends Component {
   constructor (props) {
@@ -23,7 +24,7 @@ class App extends Component {
 
   render () {
     return (
-      <div>Hello World</div>
+      <UserList />
     )
   }
 }

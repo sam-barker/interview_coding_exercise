@@ -30,7 +30,7 @@ export function fetchUsers () {
       })
       .then((response) => JSON.parse(response))
       .then((json) => {
-        dispatch(fetchUsersSuccess(json))
+        dispatch(fetchUsersSuccess(json.users))
       })
       .catch((error) => {
         dispatch(fetchUsersFailure(error))
