@@ -4,10 +4,12 @@
 */
 
 const request = require('supertest')
-const expect = require('chai').expect
-// const mockData = require('../dist/mockData').default
+const chai = require('chai')
+const should = chai.should()
+const expect = chai.expect
+const mockData = require('../dist/mockData').default
 
-describe('Routing', function () {
+describe('API', function () {
   const url = 'localhost:8081'
   describe('Users', function () {
     it('Should be able to get a list of all users', function (done) {
@@ -17,7 +19,8 @@ describe('Routing', function () {
         .end(function (err, res) {
           if (err) throw err
           expect(res.status).to.equal(200)
-          expect(res.body.users.length).to.equal(4)
+          // eql for deep comparison
+          expect(res.body.users).to.eql(mockData.USERS)
           done()
         })
     })
@@ -29,7 +32,7 @@ describe('Routing', function () {
         .end(function (err, res) {
           if (err) throw err
           expect(res.status).to.equal(200)
-          expect(res.body.user.id).to.equal('1')
+          expect(res.body.user).to.eql(mockData.USERS[0])
           done()
         })
     })
@@ -42,8 +45,15 @@ describe('Routing', function () {
         .send()
         .end(function (err, res) {
           if (err) throw err
+          for (let i = 0; i < res.body.posts.length; i++) {
+            const post = res.body.posts[i]
+            const foundPost = mockData.POSTS.find(function (otherPost) {
+              return post.id === otherPost.id
+            })
+
+            should.exist(foundPost)
+          }
           expect(res.status).to.equal(200)
-          expect(res.body.posts.length).to.equal(5)
           done()
         })
     })
@@ -68,8 +78,15 @@ describe('Routing', function () {
         .send()
         .end(function (err, res) {
           if (err) throw err
+          for (let i = 0; i < res.body.comments.length; i++) {
+            const comment = res.body.comments[i]
+            const foundComment = mockData.COMMENTS.find(function (otherComment) {
+              return comment.id === otherComment.id
+            })
+
+            should.exist(foundComment)
+          }
           expect(res.status).to.equal(200)
-          expect(res.body.comments.length).to.equal(5)
           done()
         })
     })
