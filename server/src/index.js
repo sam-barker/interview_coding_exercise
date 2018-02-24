@@ -4,7 +4,7 @@ import {setup} from './routes'
 import Path from 'path'
 
 const app = Express()
-const PORT = process.env.PORT || 8081
+const PORT = process.env.PORT || 8080
 
 // Add logging
 app.use(Morgan('combined'))
