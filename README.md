@@ -14,4 +14,4 @@ To run the server first make sure it has been transpiled using `yarn build`. If 
 To transpile and run the server in one go, run `yarn restart`
 
 ## To run the tests
-Ensure the server is first running, and then in a different terminal run `yarn test` or `npm run test`.
+Ensure the server is first transpiled and running, and then in a different terminal run `yarn test` or `npm run test`.

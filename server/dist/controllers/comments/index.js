@@ -10,21 +10,22 @@ var _mockData2 = _interopRequireDefault(_mockData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var getComments = function getComments(req) {
+  // If there's no post id then we don't need to filter
+  return !req.query.postId ? _mockData2.default.COMMENTS : _mockData2.default.COMMENTS.filter(function (_ref) {
+    var postId = _ref.postId;
+
+    return postId === req.query.postId;
+  });
+};
+
 exports.default = {
   index: function index(req, res) {
-    if (!req.query.postId) {
-      res.json({ comments: _mockData2.default.COMMENTS });
+    var comments = getComments(req);
+    if (comments && comments.length > 0) {
+      res.json({ comments: comments });
     } else {
-      var commentFilter = function commentFilter(_ref) {
-        var postId = _ref.postId;
-        return postId === req.query.postId;
-      };
-      var foundComments = _mockData2.default.COMMENTS.filter(commentFilter);
-      if (foundComments) {
-        res.json({ comments: foundComments });
-      } else {
-        res.sendStatus(404);
-      }
+      res.sendStatus(404);
     }
   }
 };

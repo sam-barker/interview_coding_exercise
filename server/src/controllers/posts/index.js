@@ -1,19 +1,19 @@
 import MockData from '../../mockData'
 
+const getPosts = (req) => {
+  // If there's no post id then we don't need to filter
+  return !req.query.userId ? MockData.POSTS : MockData.POSTS.filter(({userId}) => {
+    return userId === req.query.userId
+  })
+}
+
 export default {
   index: (req, res) => {
-    if (!req.query.userId) {
-      res.json({posts: MockData.POSTS})
+    const posts = getPosts(req)
+    if (posts && posts.length > 0) {
+      res.json({posts: posts})
     } else {
-      const foundPosts = MockData.POSTS.filter((post) => {
-        return post.userId === req.query.userId
-      })
-
-      if (foundPosts) {
-        res.json({posts: foundPosts})
-      } else {
-        res.sendStatus(404)
-      }
+      res.sendStatus(404)
     }
   }
 }
