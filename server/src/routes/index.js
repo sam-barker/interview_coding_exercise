@@ -1,12 +1,14 @@
 import {
   PostsController,
   CommentsController,
-  UsersController
+  UsersController,
+  ViewsController
 } from '../controllers'
 
 export function setup (app) {
-  app.get('/users', UsersController.index)
-  app.get('/users/:id', UsersController.show)
-  app.get('/posts', PostsController.index)
-  app.get('/comments', CommentsController.index)
+  app.get('/', ViewsController.index)
+  app.get('/api/users', UsersController.index)
+  app.get('/api/users/:id', UsersController.show)
+  app.get('/api/posts', PostsController.index)
+  app.get('/api/comments', CommentsController.index)
 }

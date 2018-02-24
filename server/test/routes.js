@@ -10,7 +10,7 @@ const expect = chai.expect
 const mockData = require('../dist/mockData').default
 
 describe('API', function () {
-  const url = 'localhost:8081'
+  const url = 'localhost:8081/api'
   describe('Users', function () {
     it('Should be able to get a list of all users', function (done) {
       request(url)

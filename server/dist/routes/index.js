@@ -8,8 +8,9 @@ exports.setup = setup;
 var _controllers = require('../controllers');
 
 function setup(app) {
-  app.get('/users', _controllers.UsersController.index);
-  app.get('/users/:id', _controllers.UsersController.show);
-  app.get('/posts', _controllers.PostsController.index);
-  app.get('/comments', _controllers.CommentsController.index);
+  app.get('/', _controllers.ViewsController.index);
+  app.get('/api/users', _controllers.UsersController.index);
+  app.get('/api/users/:id', _controllers.UsersController.show);
+  app.get('/api/posts', _controllers.PostsController.index);
+  app.get('/api/comments', _controllers.CommentsController.index);
 }
