@@ -12,11 +12,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
   index: function index(req, res) {
-    if (!req.query.authorId) {
+    if (!req.query.userId) {
       res.json({ posts: _mockData2.default.POSTS });
     } else {
       var foundPosts = _mockData2.default.POSTS.filter(function (post) {
-        return post.authorId === req.query.authorId;
+        return post.userId === req.query.userId;
       });
 
       if (foundPosts) {

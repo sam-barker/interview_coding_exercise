@@ -1,9 +1,9 @@
 export default class Post {
-  constructor (id, title, date, message, authorId) {
+  constructor (id, title, date, message, userId) {
     this.id = id
     this.title = title
     this.date = date
     this.message = message
-    this.authorId = authorId
+    this.userId = userId
   }
 }

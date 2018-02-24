@@ -2,11 +2,11 @@ import MockData from '../../mockData'
 
 export default {
   index: (req, res) => {
-    if (!req.query.authorId) {
+    if (!req.query.userId) {
       res.json({posts: MockData.POSTS})
     } else {
       const foundPosts = MockData.POSTS.filter((post) => {
-        return post.authorId === req.query.authorId
+        return post.userId === req.query.userId
       })
 
       if (foundPosts) {

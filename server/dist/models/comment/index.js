@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Comment = function Comment(id, message, date, authorId, postId) {
+var Comment = function Comment(id, message, date, userId, postId) {
   _classCallCheck(this, Comment);
 
   this.id = id;
   this.message = message;
   this.date = date;
-  this.authorId = authorId;
+  this.userId = userId;
   this.postId = postId;
 };
 
