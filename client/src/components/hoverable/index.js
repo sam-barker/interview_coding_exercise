@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Style from './style'
 
+/** 
+ * Common component used for hover effects
+ */
 class Hoverable extends React.Component {
   constructor (props) {
     super(props)

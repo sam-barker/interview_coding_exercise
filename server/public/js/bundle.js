@@ -2141,6 +2141,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/** 
+ * Common component used for hover effects
+ */
 var Hoverable = function (_React$Component) {
   _inherits(Hoverable, _React$Component);
 
@@ -21427,15 +21430,6 @@ exports.default = function () {
         users: action.users,
         error: false
       });
-    case _actionTypes2.default.FETCH_USERS_FAILURE:
-      return (0, _objectAssign2.default)({}, state, {
-        error: action.error
-      });
-    case _actionTypes2.default.FETCH_USERS_START:
-      return (0, _objectAssign2.default)({}, state, {
-        isFetching: true,
-        error: false
-      });
     case _actionTypes2.default.FETCH_POSTS_SUCCESS:
       return (0, _objectAssign2.default)({}, state, {
         isFetching: false,
@@ -21443,15 +21437,6 @@ exports.default = function () {
           if (user.id !== action.userId) return user;
           return (0, _objectAssign2.default)({}, user, { posts: action.posts });
         }),
-        error: false
-      });
-    case _actionTypes2.default.FETCH_POSTS_FAILURE:
-      return (0, _objectAssign2.default)({}, state, {
-        error: action.error
-      });
-    case _actionTypes2.default.FETCH_POSTS_START:
-      return (0, _objectAssign2.default)({}, state, {
-        isFetching: true,
         error: false
       });
     case _actionTypes2.default.FETCH_COMMENTS_SUCCESS:
@@ -21467,10 +21452,14 @@ exports.default = function () {
         }),
         error: false
       });
+    case _actionTypes2.default.FETCH_USERS_FAILURE:
+    case _actionTypes2.default.FETCH_POSTS_FAILURE:
     case _actionTypes2.default.FETCH_COMMENTS_FAILURE:
       return (0, _objectAssign2.default)({}, state, {
         error: action.error
       });
+    case _actionTypes2.default.FETCH_USERS_START:
+    case _actionTypes2.default.FETCH_POSTS_START:
     case _actionTypes2.default.FETCH_COMMENTS_START:
       return (0, _objectAssign2.default)({}, state, {
         isFetching: true,
@@ -21538,6 +21527,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/** 
+ * Application class
+ */
 var App = function (_Component) {
   _inherits(App, _Component);
 
@@ -21595,6 +21587,11 @@ var _reQwest2 = _interopRequireDefault(_reQwest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Creates an success action when users have been fetched
+ *
+ * @param {Array} users - The users obtained from the server
+ */
 function fetchUsersSuccess(users) {
   return {
     type: _actionTypes2.default.FETCH_USERS_SUCCESS,
@@ -21602,6 +21599,11 @@ function fetchUsersSuccess(users) {
   };
 }
 
+/**
+ * Creates an failure action for fetching users
+ *
+ * @param {object} error - The error returned from the server
+ */
 function fetchUsersFailure(error) {
   return {
     type: _actionTypes2.default.FETCH_USERS_FAILURE,
@@ -21609,12 +21611,18 @@ function fetchUsersFailure(error) {
   };
 }
 
+/** 
+ * Creates an action for the start of fetching users
+ */
 function fetchUsersStart() {
   return {
     type: _actionTypes2.default.FETCH_USERS_START
   };
 }
 
+/** 
+ * Fetches users from the server
+ */
 function fetchUsers() {
   return function (dispatch) {
     dispatch(fetchUsersStart());
@@ -21654,12 +21662,21 @@ var _comments = __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Returns props to use for the connected UserList
+ *
+ * @param {object} state - The current state of the store
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     users: state.users
   };
 };
 
+/**
+ * Returns function props to use for the connected UserList
+ * @param {function} dispatch - The dispatch function used to trigger actions
+ */
 var mapDispatchToprops = function mapDispatchToprops(dispatch) {
   return {
     getPostsForUser: function getPostsForUser(id) {
@@ -21710,6 +21727,15 @@ var headerStyle = {
   fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
 };
 
+var renderError = function renderError(error) {
+  return !error ? null : _react2.default.createElement(
+    'p',
+    null,
+    'An error has occured: ',
+    error
+  );
+};
+
 var renderUsers = function renderUsers(_ref) {
   var users = _ref.users,
       getPostsForUser = _ref.getPostsForUser,
@@ -21724,10 +21750,16 @@ var renderUsers = function renderUsers(_ref) {
   });
 };
 
+/**
+ * Creates a UserList component
+ *
+ * @param {object} props - The properties of the UserList
+ */
 var UserList = function UserList(props) {
   return _react2.default.createElement(
     'div',
     null,
+    renderError(props.error),
     _react2.default.createElement(
       'h1',
       { style: headerStyle },
@@ -21737,8 +21769,13 @@ var UserList = function UserList(props) {
   );
 };
 
+UserList.defaultProps = {
+  error: false
+};
+
 UserList.propTypes = {
   users: _propTypes2.default.array.isRequired,
+  error: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.bool]),
   getPostsForUser: _propTypes2.default.func.isRequired,
   getCommentsForPost: _propTypes2.default.func.isRequired
 };
@@ -21788,6 +21825,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/** 
+ * Component to represent a user
+ */
 var User = function (_React$Component) {
   _inherits(User, _React$Component);
 
@@ -21800,7 +21840,7 @@ var User = function (_React$Component) {
   _createClass(User, [{
     key: 'onUserClick',
     value: function onUserClick(e) {
-      this.props.getPostsForUser(this.props.id);
+      if (this.props.posts.length === 0) this.props.getPostsForUser(this.props.id);
     }
   }, {
     key: 'renderPosts',
@@ -21934,6 +21974,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/** 
+ * Component used to represent a post
+ */
 var Post = function (_React$Component) {
   _inherits(Post, _React$Component);
 
@@ -22150,6 +22193,12 @@ var _reQwest2 = _interopRequireDefault(_reQwest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Creates an action for the success of fetching posts
+ *
+ * @param {Array} posts - The posts successfully fetched from the server
+ * @param {string} userId - The id of the user who the posts belong to
+ */
 function fetchPostsSuccess(posts, userId) {
   return {
     type: _actionTypes2.default.FETCH_POSTS_SUCCESS,
@@ -22158,6 +22207,11 @@ function fetchPostsSuccess(posts, userId) {
   };
 }
 
+/**
+ * Creates an action for the failure of fetching posts
+ *
+ * @param {object} error - The error from the server
+ */
 function fetchPostsFailure(error) {
   return {
     type: _actionTypes2.default.FETCH_POSTS_FAILURE,
@@ -22165,12 +22219,20 @@ function fetchPostsFailure(error) {
   };
 }
 
+/**
+ * Creates an action for the initiation of a fetch for posts 
+ */
 function fetchPostsStart() {
   return {
     type: _actionTypes2.default.FETCH_POSTS_START
   };
 }
 
+/**
+ * Fetches posts from the server
+ *
+ * @param {string} userId - The user to fetch posts for
+ */
 function fetchPosts(userId) {
   return function (dispatch) {
     dispatch(fetchPostsStart());
@@ -22212,6 +22274,13 @@ var _reQwest2 = _interopRequireDefault(_reQwest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Creates an action for successful fetching of comments
+ *
+ * @param {Array} comments - The comments obtained from the server
+ * @param {string} userId - The id of the user who's post the comments belong to
+ * @param {string} postId - The id of the post these comments belong to
+ */
 function fetchCommentsSuccess(comments, userId, postId) {
   return {
     type: _actionTypes2.default.FETCH_COMMENTS_SUCCESS,
@@ -22221,6 +22290,11 @@ function fetchCommentsSuccess(comments, userId, postId) {
   };
 }
 
+/**
+ * Creates an action for an unsuccessful fetching of comments
+ *
+ * @param {object} error - The error received from the server
+ */
 function fetchCommentsFailure(error) {
   return {
     type: _actionTypes2.default.FETCH_COMMENTS_FAILURE,
@@ -22228,12 +22302,21 @@ function fetchCommentsFailure(error) {
   };
 }
 
+/**
+ * Creates an action for starting the fetch of comments
+ */
 function fetchCommentsStart() {
   return {
     type: _actionTypes2.default.FETCH_COMMENTS_START
   };
 }
 
+/**
+ * Fetches comments from the server
+ *
+ * @param {string} userId - The id of the user who's posts have the comments
+ * @param {string} postId - the id of the post that the comments belong to
+ */
 function fetchComments(userId, postId) {
   return function (dispatch) {
     dispatch(fetchCommentsStart());

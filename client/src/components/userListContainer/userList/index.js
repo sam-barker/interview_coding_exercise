@@ -25,6 +25,11 @@ const renderUsers = ({users, getPostsForUser, getCommentsForPost}) => {
   })
 }
 
+/**
+ * Creates a UserList component
+ *
+ * @param {object} props - The properties of the UserList
+ */
 const UserList = (props) => {
   return (
     <div>

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import Style from './style'
 import Hoverable from '../../../hoverable'
 
+/** 
+ * Component used to represent a post
+ */
 class Post extends React.Component {
   constructor (props) {
     super(props)

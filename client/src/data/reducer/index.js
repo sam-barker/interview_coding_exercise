@@ -10,15 +10,6 @@ export default (state = InitialState, action) => {
         users: action.users,
         error: false
       })
-    case ActionTypes.FETCH_USERS_FAILURE:
-      return Assign({}, state, {
-        error: action.error
-      })
-    case ActionTypes.FETCH_USERS_START:
-      return Assign({}, state, {
-        isFetching: true,
-        error: false
-      })
     case ActionTypes.FETCH_POSTS_SUCCESS:
       return Assign({}, state, {
         isFetching: false,
@@ -26,15 +17,6 @@ export default (state = InitialState, action) => {
           if (user.id !== action.userId) return user
           return Assign({}, user, {posts: action.posts})
         }),
-        error: false
-      })
-    case ActionTypes.FETCH_POSTS_FAILURE:
-      return Assign({}, state, {
-        error: action.error
-      })
-    case ActionTypes.FETCH_POSTS_START:
-      return Assign({}, state, {
-        isFetching: true,
         error: false
       })
     case ActionTypes.FETCH_COMMENTS_SUCCESS:
@@ -50,10 +32,14 @@ export default (state = InitialState, action) => {
         }),
         error: false
       })
+    case ActionTypes.FETCH_USERS_FAILURE:
+    case ActionTypes.FETCH_POSTS_FAILURE:
     case ActionTypes.FETCH_COMMENTS_FAILURE:
       return Assign({}, state, {
         error: action.error
       })
+    case ActionTypes.FETCH_USERS_START:
+    case ActionTypes.FETCH_POSTS_START:
     case ActionTypes.FETCH_COMMENTS_START:
       return Assign({}, state, {
         isFetching: true,

@@ -5,6 +5,9 @@ import Store from '../../data'
 import {fetchUsers} from '../../data/actionCreators/users'
 import UserList from '../userListContainer'
 
+/** 
+ * Application class
+ */
 class App extends Component {
   constructor (props) {
     super(props)
