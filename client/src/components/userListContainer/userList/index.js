@@ -1,44 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import User from './user'
+import Assign from 'object-assign'
 
-const style = {
-  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-  border: '1px solid black',
-  padding: '10px',
-  margin: '10px',
-  wordBreak: 'break-all'
+const headerStyle = {
+  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
 }
 
-const renderComments = (comments) => {
-  return comments.map(({id, message, date, userId}) => {
+const renderUsers = ({users, getPostsForUser, getCommentsForPost}) => {
+  return users.map((user) => {
+    const userProps = Assign({}, user, {
+      getPostsForUser: getPostsForUser,
+      getCommentsForPost: getCommentsForPost
+    })
     return (
-      <div key={`${id}_${message}`} style={style}>{message} {date} {userId}</div>
+      <User key={user.id} {...userProps} />
     )
   })
 }
 
-const renderPosts = (posts, getCommentsForPost) => {
-  return posts.map(({id, title, date, message, userId, comments = []}) => {
-    return (
-      <div style={style} key={`${id}_${title}_${date}`}>
-        <a href={'#'} onClick={() => { getCommentsForPost(userId, id) }}>{title}</a> {date} {message}
-        {renderComments(comments)}
-      </div>
-    )
-  })
-}
-
-const UserList = ({users, getPostsForUser, getCommentsForPost}) => {
-  return users.map(({id, email, username, posts = []}) => {
-    return (
-      <div style={style} key={`${id}_${email}_${username}`}>
-        <p>{id}</p>
-        <a href={'#'} onClick={() => { getPostsForUser(id) }}>{username}</a>
-        <p>{email}</p>
-        {renderPosts(posts, getCommentsForPost)}
-      </div>
-    )
-  })
+const UserList = (props) => {
+  return (
+    <div>
+      <h1 style={headerStyle}>Users</h1>
+      {renderUsers(props)}
+    </div>
+  )
 }
 
 UserList.propTypes = {

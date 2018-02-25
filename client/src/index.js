@@ -11,10 +11,7 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.unsubscribe = Store.subscribe(() => {
-      console.log(Store.getState())
-    })
-
+    this.unsubscribe = Store.subscribe(() => { })
     Store.dispatch(fetchUsers())
   }
 
