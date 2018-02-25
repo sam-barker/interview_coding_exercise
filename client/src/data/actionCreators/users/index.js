@@ -1,6 +1,11 @@
 import ActionTypes from '../../actionTypes'
 import Reqwest from '@spbarker/re-qwest'
 
+/**
+ * Creates an success action when users have been fetched
+ *
+ * @param {Array} users - The users obtained from the server
+ */
 export function fetchUsersSuccess (users) {
   return {
     type: ActionTypes.FETCH_USERS_SUCCESS,
@@ -8,6 +13,11 @@ export function fetchUsersSuccess (users) {
   }
 }
 
+/**
+ * Creates an failure action for fetching users
+ *
+ * @param {object} error - The error returned from the server
+ */
 export function fetchUsersFailure (error) {
   return {
     type: ActionTypes.FETCH_USERS_FAILURE,
@@ -15,12 +25,18 @@ export function fetchUsersFailure (error) {
   }
 }
 
+/** 
+ * Creates an action for the start of fetching users
+ */
 export function fetchUsersStart () {
   return {
     type: ActionTypes.FETCH_USERS_START
   }
 }
 
+/** 
+ * Fetches users from the server
+ */
 export function fetchUsers () {
   return function (dispatch) {
     dispatch(fetchUsersStart())

@@ -31,6 +31,7 @@ var BRUCE_BANNER_COMMENT_1 = new _models.Comment('4', 'Don\'t you mean WE?', new
 
 var TONY_STARK_COMMENT_3 = new _models.Comment('5', 'You should always do your homework kid', new Date(2018, 2, 23), TONY_STARK.username, PETER_PARKER_POST_1.id);
 
+// Setup static mock data to use
 exports.default = {
   USERS: [TONY_STARK, STEVE_ROGERS, BRUCE_BANNER, PETER_PARKER],
   POSTS: [TONY_STARK_POST_1, TONY_STARK_POST_2, STEVE_ROGERS_POST_1, BRUCE_BANNER_POST_1, PETER_PARKER_POST_1],

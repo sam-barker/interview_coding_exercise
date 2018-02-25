@@ -6,7 +6,15 @@
   "author": "Samuel Barker <spbarker1994@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js"
   },
   "dependencies": {
     "@spbarker/re-qwest": "^3.0.0",
@@ -23,6 +31,9 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.4.2",
     "webpack": "^3.11.0"
   }
 }

@@ -1,12 +1,14 @@
 # interview_coding_exercise
 A coding exercise which uses a node api and react SPA to display users, posts and comments
 
+![Alt text](screenshot.png?raw=true "Screenshot")
+
 # Pre-Requesites
 * Ensure you have node installed
 * Have yarn installed (you may also use npm instead)
 
 # Quickstart
-To get up and running. Go to the `client` directory and run the build using `yarn build`. The command will not terminate as it watches for frontend changes. You can terminate this however. Then go into the `server` directory and run the build using `yarn build`. Then start the server with `yarn start`. Finally, go to `http://localhost:8080` in your browser.
+To get up and running. Go to the `client` directory and run the build using `yarn build`. The command will not terminate as it watches for frontend changes. You can terminate this however upon completion using CTRL + C. Then go into the `server` directory and run the build using `yarn build`. Then start the server with `yarn start`. Finally, go to `http://localhost:8080` in your browser.
 
 # Server
 NB: The following instructions apply when you are in the `server` directory

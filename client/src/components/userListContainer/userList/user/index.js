@@ -4,13 +4,16 @@ import Post from '../post'
 import Hoverable from '../../../hoverable'
 import Assign from 'object-assign'
 
+/** 
+ * Component to represent a user
+ */
 class User extends React.Component {
   constructor (props) {
     super(props)
   }
 
   onUserClick (e) {
-    this.props.getPostsForUser(this.props.id)
+    if (this.props.posts.length === 0) this.props.getPostsForUser(this.props.id)
   }
 
   renderPosts () {
@@ -23,7 +26,7 @@ class User extends React.Component {
       )
     })
 
-    return posts.length == 0 ? null : (
+    return posts.length === 0 ? null : (
       <div>
         <h2>Posts by {this.props.username}:</h2>
         {posts}
