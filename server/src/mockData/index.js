@@ -53,7 +53,7 @@ const TONY_STARK_COMMENT_1 = new Comment(
   '1',
   'Just give up Cap!',
   new Date(2012, 3, 18),
-  TONY_STARK.id,
+  TONY_STARK.username,
   STEVE_ROGERS_POST_1.id
 )
 
@@ -61,7 +61,7 @@ const TONY_STARK_COMMENT_2 = new Comment(
   '2',
   `You won't like him when he's angry!`,
   new Date(2015, 1, 4),
-  TONY_STARK.id,
+  TONY_STARK.username,
   BRUCE_BANNER_POST_1.id
 )
 
@@ -69,7 +69,7 @@ const STEVE_ROGERS_COMMENT_1 = new Comment(
   '3',
   'We all knew that!',
   new Date(2018, 2, 23),
-  STEVE_ROGERS.id,
+  STEVE_ROGERS.username,
   TONY_STARK_POST_1.id
 )
 
@@ -77,7 +77,7 @@ const BRUCE_BANNER_COMMENT_1 = new Comment(
   '4',
   `Don't you mean WE?`,
   new Date(2013, 7, 15),
-  BRUCE_BANNER.id,
+  BRUCE_BANNER.username,
   TONY_STARK_POST_2.id
 )
 
@@ -85,7 +85,7 @@ const TONY_STARK_COMMENT_3 = new Comment(
   '5',
   'You should always do your homework kid',
   new Date(2018, 2, 23),
-  TONY_STARK.id,
+  TONY_STARK.username,
   PETER_PARKER_POST_1.id
 )
 

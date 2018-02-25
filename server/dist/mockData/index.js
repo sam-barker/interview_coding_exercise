@@ -21,15 +21,15 @@ var BRUCE_BANNER_POST_1 = new _models.Post('4', 'HULK SMASH', new Date(2015, 1, 
 
 var PETER_PARKER_POST_1 = new _models.Post('5', 'Being Spidey is tiring!', new Date(2018, 2, 22), 'I got no homework done last night! I was too busy fighting the Green Goblin!', PETER_PARKER.id);
 
-var TONY_STARK_COMMENT_1 = new _models.Comment('1', 'Just give up Cap!', new Date(2012, 3, 18), TONY_STARK.id, STEVE_ROGERS_POST_1.id);
+var TONY_STARK_COMMENT_1 = new _models.Comment('1', 'Just give up Cap!', new Date(2012, 3, 18), TONY_STARK.username, STEVE_ROGERS_POST_1.id);
 
-var TONY_STARK_COMMENT_2 = new _models.Comment('2', 'You won\'t like him when he\'s angry!', new Date(2015, 1, 4), TONY_STARK.id, BRUCE_BANNER_POST_1.id);
+var TONY_STARK_COMMENT_2 = new _models.Comment('2', 'You won\'t like him when he\'s angry!', new Date(2015, 1, 4), TONY_STARK.username, BRUCE_BANNER_POST_1.id);
 
-var STEVE_ROGERS_COMMENT_1 = new _models.Comment('3', 'We all knew that!', new Date(2018, 2, 23), STEVE_ROGERS.id, TONY_STARK_POST_1.id);
+var STEVE_ROGERS_COMMENT_1 = new _models.Comment('3', 'We all knew that!', new Date(2018, 2, 23), STEVE_ROGERS.username, TONY_STARK_POST_1.id);
 
-var BRUCE_BANNER_COMMENT_1 = new _models.Comment('4', 'Don\'t you mean WE?', new Date(2013, 7, 15), BRUCE_BANNER.id, TONY_STARK_POST_2.id);
+var BRUCE_BANNER_COMMENT_1 = new _models.Comment('4', 'Don\'t you mean WE?', new Date(2013, 7, 15), BRUCE_BANNER.username, TONY_STARK_POST_2.id);
 
-var TONY_STARK_COMMENT_3 = new _models.Comment('5', 'You should always do your homework kid', new Date(2018, 2, 23), TONY_STARK.id, PETER_PARKER_POST_1.id);
+var TONY_STARK_COMMENT_3 = new _models.Comment('5', 'You should always do your homework kid', new Date(2018, 2, 23), TONY_STARK.username, PETER_PARKER_POST_1.id);
 
 exports.default = {
   USERS: [TONY_STARK, STEVE_ROGERS, BRUCE_BANNER, PETER_PARKER],

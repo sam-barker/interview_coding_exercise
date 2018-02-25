@@ -31,4 +31,13 @@ Object.defineProperty(exports, 'PostsController', {
   }
 });
 
+var _views = require('./views');
+
+Object.defineProperty(exports, 'ViewsController', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_views).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
