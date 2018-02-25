@@ -13,10 +13,10 @@ const baseStyle = {
 const hoveredStyle = (colour) => {
   return {
     backgroundColor: colour,
-    transition: 'background-color 250ms linear',
-    msTransition: 'background-color 250ms linear',
-    WebkitTransition: 'background-color 250ms linear',
-    MozTransition: 'background-color 250ms linear'
+    transition: 'background-color 250ms ease-in-out',
+    msTransition: 'background-color 250ms ease-in-out',
+    WebkitTransition: 'background-color 250ms ease-in-out',
+    MozTransition: 'background-color 250ms ease-in-out'
   }
 }
 
