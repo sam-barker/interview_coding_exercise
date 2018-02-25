@@ -10,6 +10,10 @@ var _mockData2 = _interopRequireDefault(_mockData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Obtains the post from a filter in the request
+ * @param {object} req - The request object containing the filter
+ */
 var getPosts = function getPosts(req) {
   // If there's no post id then we don't need to filter
   return !req.query.userId ? _mockData2.default.POSTS : _mockData2.default.POSTS.filter(function (_ref) {
@@ -20,6 +24,11 @@ var getPosts = function getPosts(req) {
 };
 
 exports.default = {
+  /**
+   * Controller action for all posts
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   */
   index: function index(req, res) {
     var posts = getPosts(req);
     if (posts && posts.length > 0) {

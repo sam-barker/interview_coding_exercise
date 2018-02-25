@@ -89,6 +89,7 @@ const TONY_STARK_COMMENT_3 = new Comment(
   PETER_PARKER_POST_1.id
 )
 
+// Setup static mock data to use
 export default {
   USERS: [
     TONY_STARK,

@@ -7,6 +7,11 @@ exports.setup = setup;
 
 var _controllers = require('../controllers');
 
+/**
+ * Add the necessary routes
+ *
+ * @param {object} app - The application to run
+ */
 function setup(app) {
   app.get('/', _controllers.ViewsController.index);
   app.get('/api/users', _controllers.UsersController.index);
