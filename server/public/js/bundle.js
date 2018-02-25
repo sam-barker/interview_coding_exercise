@@ -21309,6 +21309,46 @@ exports.default = function () {
         isFetching: true,
         error: false
       });
+    case _actionTypes2.default.FETCH_POSTS_SUCCESS:
+      return (0, _objectAssign2.default)({}, state, {
+        isFetching: false,
+        users: state.users.map(function (user) {
+          if (user.id !== action.userId) return user;
+          return (0, _objectAssign2.default)({}, user, { posts: action.posts });
+        }),
+        error: false
+      });
+    case _actionTypes2.default.FETCH_POSTS_FAILURE:
+      return (0, _objectAssign2.default)({}, state, {
+        error: action.error
+      });
+    case _actionTypes2.default.FETCH_POSTS_START:
+      return (0, _objectAssign2.default)({}, state, {
+        isFetching: true,
+        error: false
+      });
+    case _actionTypes2.default.FETCH_COMMENTS_SUCCESS:
+      return (0, _objectAssign2.default)({}, state, {
+        isFetching: false,
+        users: state.users.map(function (user) {
+          if (user.id !== action.userId) return user;
+          var postsWithComments = user.posts.map(function (post) {
+            if (post.id !== action.postId) return post;
+            return (0, _objectAssign2.default)({}, post, { comments: action.comments });
+          });
+          return (0, _objectAssign2.default)({}, user, { posts: postsWithComments });
+        }),
+        error: false
+      });
+    case _actionTypes2.default.FETCH_COMMENTS_FAILURE:
+      return (0, _objectAssign2.default)({}, state, {
+        error: action.error
+      });
+    case _actionTypes2.default.FETCH_COMMENTS_START:
+      return (0, _objectAssign2.default)({}, state, {
+        isFetching: true,
+        error: false
+      });
     default:
       return state;
   }
@@ -21512,6 +21552,10 @@ var _userList = __webpack_require__(77);
 
 var _userList2 = _interopRequireDefault(_userList);
 
+var _posts = __webpack_require__(78);
+
+var _comments = __webpack_require__(79);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -21520,7 +21564,18 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var UserContainer = (0, _reactRedux.connect)(mapStateToProps)(_userList2.default);
+var mapDispatchToprops = function mapDispatchToprops(dispatch) {
+  return {
+    getPostsForUser: function getPostsForUser(id) {
+      dispatch((0, _posts.fetchPosts)(id));
+    },
+    getCommentsForPost: function getCommentsForPost(userId, postId) {
+      dispatch((0, _comments.fetchComments)(userId, postId));
+    }
+  };
+};
+
+var UserContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToprops)(_userList2.default);
 
 exports.default = UserContainer;
 
@@ -21545,44 +21600,231 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserList = function UserList(_ref) {
-  var users = _ref.users;
+var style = {
+  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  border: '1px solid black',
+  padding: '10px',
+  margin: '10px',
+  wordBreak: 'break-all'
+};
 
-  return users.map(function (_ref2) {
-    var id = _ref2.id,
-        email = _ref2.email,
-        username = _ref2.username;
+var renderComments = function renderComments(comments) {
+  return comments.map(function (_ref) {
+    var id = _ref.id,
+        message = _ref.message,
+        date = _ref.date,
+        userId = _ref.userId;
 
     return _react2.default.createElement(
       'div',
-      { key: id + '_' + email + '_' + username },
+      { key: id + '_' + message, style: style },
+      message,
+      ' ',
+      date,
+      ' ',
+      userId
+    );
+  });
+};
+
+var renderPosts = function renderPosts(posts, getCommentsForPost) {
+  return posts.map(function (_ref2) {
+    var id = _ref2.id,
+        title = _ref2.title,
+        date = _ref2.date,
+        message = _ref2.message,
+        userId = _ref2.userId,
+        _ref2$comments = _ref2.comments,
+        comments = _ref2$comments === undefined ? [] : _ref2$comments;
+
+    return _react2.default.createElement(
+      'div',
+      { style: style, key: id + '_' + title + '_' + date },
+      _react2.default.createElement(
+        'a',
+        { href: '#', onClick: function onClick() {
+            getCommentsForPost(userId, id);
+          } },
+        title
+      ),
+      ' ',
+      date,
+      ' ',
+      message,
+      renderComments(comments)
+    );
+  });
+};
+
+var UserList = function UserList(_ref3) {
+  var users = _ref3.users,
+      getPostsForUser = _ref3.getPostsForUser,
+      getCommentsForPost = _ref3.getCommentsForPost;
+
+  return users.map(function (_ref4) {
+    var id = _ref4.id,
+        email = _ref4.email,
+        username = _ref4.username,
+        _ref4$posts = _ref4.posts,
+        posts = _ref4$posts === undefined ? [] : _ref4$posts;
+
+    return _react2.default.createElement(
+      'div',
+      { style: style, key: id + '_' + email + '_' + username },
       _react2.default.createElement(
         'p',
         null,
-        'ID - ',
         id
       ),
       _react2.default.createElement(
-        'p',
-        null,
-        'Email - ',
-        email
+        'a',
+        { href: '#', onClick: function onClick() {
+            getPostsForUser(id);
+          } },
+        username
       ),
       _react2.default.createElement(
         'p',
         null,
-        'Username - ',
-        username
-      )
+        email
+      ),
+      renderPosts(posts, getCommentsForPost)
     );
   });
 };
 
 UserList.propTypes = {
-  users: _propTypes2.default.array.isRequired
+  users: _propTypes2.default.array.isRequired,
+  getPostsForUser: _propTypes2.default.func.isRequired,
+  getCommentsForPost: _propTypes2.default.func.isRequired
 };
 
 exports.default = UserList;
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchPostsSuccess = fetchPostsSuccess;
+exports.fetchPostsFailure = fetchPostsFailure;
+exports.fetchPostsStart = fetchPostsStart;
+exports.fetchPosts = fetchPosts;
+
+var _actionTypes = __webpack_require__(29);
+
+var _actionTypes2 = _interopRequireDefault(_actionTypes);
+
+var _reQwest = __webpack_require__(74);
+
+var _reQwest2 = _interopRequireDefault(_reQwest);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function fetchPostsSuccess(posts, userId) {
+  return {
+    type: _actionTypes2.default.FETCH_POSTS_SUCCESS,
+    posts: posts,
+    userId: userId
+  };
+}
+
+function fetchPostsFailure(error) {
+  return {
+    type: _actionTypes2.default.FETCH_POSTS_FAILURE,
+    error: error
+  };
+}
+
+function fetchPostsStart() {
+  return {
+    type: _actionTypes2.default.FETCH_POSTS_START
+  };
+}
+
+function fetchPosts(userId) {
+  return function (dispatch) {
+    dispatch(fetchPostsStart());
+    (0, _reQwest2.default)({
+      method: 'GET',
+      url: 'http://localhost:8080/api/posts?userId=' + userId
+    }).then(function (response) {
+      return JSON.parse(response);
+    }).then(function (json) {
+      dispatch(fetchPostsSuccess(json.posts, userId));
+    }).catch(function (error) {
+      dispatch(fetchPostsFailure(error));
+    });
+  };
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchCommentsSuccess = fetchCommentsSuccess;
+exports.fetchCommentsFailure = fetchCommentsFailure;
+exports.fetchCommentsStart = fetchCommentsStart;
+exports.fetchComments = fetchComments;
+
+var _actionTypes = __webpack_require__(29);
+
+var _actionTypes2 = _interopRequireDefault(_actionTypes);
+
+var _reQwest = __webpack_require__(74);
+
+var _reQwest2 = _interopRequireDefault(_reQwest);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function fetchCommentsSuccess(comments, userId, postId) {
+  return {
+    type: _actionTypes2.default.FETCH_COMMENTS_SUCCESS,
+    comments: comments,
+    userId: userId,
+    postId: postId
+  };
+}
+
+function fetchCommentsFailure(error) {
+  return {
+    type: _actionTypes2.default.FETCH_COMMENTS_FAILURE,
+    error: error
+  };
+}
+
+function fetchCommentsStart() {
+  return {
+    type: _actionTypes2.default.FETCH_COMMENTS_START
+  };
+}
+
+function fetchComments(userId, postId) {
+  return function (dispatch) {
+    dispatch(fetchCommentsStart());
+    (0, _reQwest2.default)({
+      method: 'GET',
+      url: 'http://localhost:8080/api/comments?postId=' + postId
+    }).then(function (response) {
+      return JSON.parse(response);
+    }).then(function (json) {
+      dispatch(fetchCommentsSuccess(json.comments, userId, postId));
+    }).catch(function (error) {
+      dispatch(fetchCommentsFailure(error));
+    });
+  };
+}
 
 /***/ })
 /******/ ]);

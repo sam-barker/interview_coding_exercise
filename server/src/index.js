@@ -17,3 +17,4 @@ setup(app)
 app.listen(PORT)
 
 console.log('Server started successfully!')
+console.log('Go to localhost:8080 to view the application')
