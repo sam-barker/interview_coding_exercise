@@ -23,7 +23,7 @@ class User extends React.Component {
       )
     })
 
-    return posts.length == 0 ? null : (
+    return posts.length === 0 ? null : (
       <div>
         <h2>Posts by {this.props.username}:</h2>
         {posts}

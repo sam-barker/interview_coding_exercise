@@ -21,7 +21,7 @@ const hoveredStyle = (colour) => {
 }
 
 export default {
-  clickable: (colour, hovered = false) => {
+  hover: (colour, hovered = false) => {
     return Assign({}, baseStyle, hovered ? hoveredStyle(colour) : null)
   }
 }

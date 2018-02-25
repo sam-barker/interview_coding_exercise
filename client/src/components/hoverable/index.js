@@ -19,9 +19,10 @@ class Hoverable extends React.Component {
   }
 
   render () {
+    const style = Style.hover(this.props.colour, this.state.hovered)
     return (
       <div
-        style={Style.clickable(this.props.colour, this.state.hovered)}
+        style={style}
         onMouseEnter={this.onEnter.bind(this)}
         onMouseLeave={this.onLeave.bind(this)}>
         {this.props.children}
